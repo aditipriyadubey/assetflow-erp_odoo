@@ -6,8 +6,8 @@ import { ROLES } from '../utils/constants';
  */
 export const ROUTE_ROLE_ACCESS = {
   '/organization': ['Admin'],
-  '/reports': ['Admin', 'AssetManager', 'DepartmentHead'],
-  '/audits': ['Admin', 'AssetManager'],
+  '/reports': ['Admin', 'AssetManager', 'DepartmentHead', 'Employee'],
+  '/audits': ['Admin', 'AssetManager', 'DepartmentHead', 'Employee'],
 };
 
 export function hasRole(userRole, allowedRoles) {
