@@ -1,7 +1,8 @@
-import { useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useId } from 'react';
 import { X } from 'lucide-react';
 
 function Modal({ isOpen, onClose, title, children, footer }) {
+  const titleId = useId();
   const handleEscape = useCallback(
     (event) => {
       if (event.key === 'Escape') {
@@ -34,7 +35,7 @@ function Modal({ isOpen, onClose, title, children, footer }) {
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
       role="dialog"
       aria-modal="true"
-      aria-labelledby={title ? 'modal-title' : undefined}
+      aria-labelledby={title ? titleId : undefined}
     >
       <button
         type="button"
@@ -50,7 +51,7 @@ function Modal({ isOpen, onClose, title, children, footer }) {
       >
         <div className="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
           {title && (
-            <h2 id="modal-title" className="text-lg font-semibold text-neutral-900">
+            <h2 id={titleId} className="text-lg font-semibold text-neutral-900">
               {title}
             </h2>
           )}
