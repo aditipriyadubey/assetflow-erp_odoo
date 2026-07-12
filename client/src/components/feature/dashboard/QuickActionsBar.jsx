@@ -6,7 +6,7 @@ import Card from '../../common/Card';
 const QUICK_ACTIONS = [
   {
     label: 'Register Asset',
-    path: '/assets/new',
+    path: '/assets',
     icon: PackagePlus,
     roles: ['Admin', 'AssetManager'],
   },

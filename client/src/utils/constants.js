@@ -15,6 +15,14 @@ export const ASSET_STATUS = [
   'Disposed',
 ];
 
+export const ASSET_CONDITIONS = [
+  'New',
+  'Good',
+  'Fair',
+  'Poor',
+  'Damaged',
+];
+
 export const ALLOCATION_STATUS = [
   'Active',
   'Returned',
