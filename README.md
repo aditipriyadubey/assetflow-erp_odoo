@@ -10,9 +10,6 @@ Manage • Track • Allocate • Maintain • Audit • Report
 
 <p align="center">
 
-![GitHub stars](https://img.shields.io/github/stars/your-repo/assetflow?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/your-repo/assetflow?style=for-the-badge)
-![GitHub issues](https://img.shields.io/github/issues/your-repo/assetflow?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Academic-blue?style=for-the-badge)
 ![NodeJS](https://img.shields.io/badge/Backend-Node.js-green?style=for-the-badge&logo=node.js)
 ![Express](https://img.shields.io/badge/Framework-Express-black?style=for-the-badge&logo=express)
