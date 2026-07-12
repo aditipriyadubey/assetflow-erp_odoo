@@ -1,7 +1,7 @@
 import { Bell, ChevronDown, LogOut } from 'lucide-react';
 import { useState } from 'react';
 
-function Navbar({ pageTitle, userName, userRole, unreadCount = 0, onLogout }) {
+function Navbar({ pageTitle, userName, userRole, unreadCount = 0, onNotificationClick, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -13,6 +13,7 @@ function Navbar({ pageTitle, userName, userRole, unreadCount = 0, onLogout }) {
       <div className="flex items-center gap-4">
         <button
           type="button"
+          onClick={onNotificationClick}
           className="relative rounded-md p-2 text-neutral-500 hover:bg-neutral-100 hover:text-neutral-700"
           aria-label="Notifications"
         >

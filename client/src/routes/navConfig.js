@@ -55,13 +55,13 @@ export const NAV_ITEMS = [
     label: 'Asset Audits',
     path: '/audits',
     icon: ClipboardCheck,
-    roles: ['Admin', 'AssetManager'],
+    roles: ['Admin', 'AssetManager', 'DepartmentHead', 'Employee'],
   },
   {
     label: 'Reports & Analytics',
     path: '/reports',
     icon: BarChart3,
-    roles: ['Admin', 'AssetManager', 'DepartmentHead'],
+    roles: ['Admin', 'AssetManager', 'DepartmentHead', 'Employee'],
   },
   {
     label: 'Activity & Notifications',

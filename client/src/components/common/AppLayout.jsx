@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import useNotifications from '../../hooks/useNotifications';
 import { getPageTitle } from '../../routes/navConfig';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 
 function AppLayout() {
   const { user, logout } = useAuth();
+  const { unreadCount } = useNotifications();
   const location = useLocation();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
@@ -29,6 +31,10 @@ function AppLayout() {
     navigate('/login', { replace: true });
   };
 
+  const handleNotificationClick = () => {
+    navigate('/notifications', { replace: false });
+  };
+
   const sidebarWidth = collapsed ? 'lg:pl-16' : 'lg:pl-64';
 
   return (
@@ -44,7 +50,8 @@ function AppLayout() {
           pageTitle={getPageTitle(location.pathname)}
           userName={user?.name ?? 'User'}
           userRole={user?.role ?? ''}
-          unreadCount={3}
+          unreadCount={unreadCount}
+          onNotificationClick={handleNotificationClick}
           onLogout={handleLogout}
         />
 
