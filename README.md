@@ -160,5 +160,295 @@ From procurement to allocation, transfers, maintenance, auditing, reporting and 
 ---
 
 
+# 🏗 System Architecture
 
+AssetFlow follows a modular layered architecture to ensure scalability, maintainability, and separation of concerns.
+
+```mermaid
+flowchart TD
+
+A[👤 User]
+
+B[🌐 React Frontend]
+
+C[📡 REST API]
+
+D[🎮 Controllers]
+
+E[⚙ Services]
+
+F[🗄 Repositories]
+
+G[(🛢 MySQL Database)]
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+```
+
+---
+
+# 🔄 Backend Request Flow
+
+```mermaid
+sequenceDiagram
+
+participant User
+participant React
+participant Express
+participant Controller
+participant Service
+participant Repository
+participant Database
+
+User->>React: User Action
+React->>Express: API Request
+Express->>Controller: Route
+Controller->>Service: Business Logic
+Service->>Repository: SQL Query
+Repository->>Database: Execute Query
+Database-->>Repository: Result
+Repository-->>Service: Data
+Service-->>Controller: Response
+Controller-->>React: JSON Response
+React-->>User: Updated UI
+```
+
+---
+
+# 🔐 Authentication Flow
+
+```mermaid
+flowchart LR
+
+A[User Login]
+
+B[JWT Generated]
+
+C[JWT Stored]
+
+D[Authorization Header]
+
+E[Authentication Middleware]
+
+F[RBAC Middleware]
+
+G[Protected APIs]
+
+A --> B --> C --> D --> E --> F --> G
+```
+
+---
+
+# ⚙ Tech Stack
+
+## 🎨 Frontend
+
+| Technology | Purpose |
+|------------|----------|
+| React.js | Frontend Framework |
+| Vite | Build Tool |
+| Tailwind CSS | Styling |
+| Context API | State Management |
+| React Router | Routing |
+| Axios | API Calls |
+
+---
+
+## 🖥 Backend
+
+| Technology | Purpose |
+|------------|----------|
+| Node.js | Runtime |
+| Express.js | REST APIs |
+| JWT | Authentication |
+| bcrypt | Password Hashing |
+| Express Validator | Validation |
+| MySQL2 | Database Driver |
+| Multer | File Uploads |
+| QRCode | QR Generation |
+| JSON2CSV | CSV Reports |
+
+---
+
+## 🗄 Database
+
+| Technology | Purpose |
+|------------|----------|
+| MySQL | Relational Database |
+
+---
+
+## 🔒 Security
+
+- JWT Authentication
+- Refresh Tokens
+- Password Hashing
+- Parameterized SQL Queries
+- RBAC
+- Express Validator
+- Secure Error Handling
+
+---
+
+
+# 📁 Project Structure
+
+```text
+assetflow-erp_odoo/
+│
+├── 📂 client/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+├── 📂 server/
+│   │
+│   ├── src/
+│   │   ├── config/
+│   │   ├── middlewares/
+│   │   ├── modules/
+│   │   │
+│   │   ├── auth/
+│   │   ├── users/
+│   │   ├── departments/
+│   │   ├── categories/
+│   │   ├── assets/
+│   │   ├── allocations/
+│   │   ├── transfers/
+│   │   ├── bookings/
+│   │   ├── maintenance/
+│   │   ├── audits/
+│   │   ├── notifications/
+│   │   ├── activityLogs/
+│   │   └── reports/
+│   │
+│   ├── utils/
+│   ├── app.js
+│   └── server.js
+│
+├── 📂 database/
+│   ├── schema.sql
+│   ├── seed.sql
+│   └── migrations/
+│
+├── 📂 docs/
+│
+├── .env.example
+├── README.md
+└── .gitignore
+```
+
+---
+
+# 👨‍💻 Team Responsibilities
+
+| Developer | Responsibility |
+|-----------|----------------|
+| 👩 Developer 1 | Frontend Development |
+| 👨 Developer 2 | Assets, Allocations, Transfers, Reports, Dashboard APIs |
+| 👨 Developer 3 | Authentication, Users, Departments, Categories, Database, Middleware |
+| 👨 Developer 4 | Bookings, Maintenance, Audits |
+
+---
+
+# 🏗 Backend Module Architecture
+
+Every backend module follows the exact same architecture.
+
+```text
+routes.js
+      │
+      ▼
+controller.js
+      │
+      ▼
+service.js
+      │
+      ▼
+repository.js
+      │
+      ▼
+MySQL Database
+```
+
+---
+
+## 📌 Responsibilities
+
+### routes.js
+
+- Express Router
+- API Endpoints
+- Middleware
+- Route Definitions
+
+---
+
+### controller.js
+
+- Parse Request
+- Call Services
+- Return Responses
+- No Business Logic
+
+---
+
+### service.js
+
+- Business Logic
+- Transactions
+- Validation
+- Calls Repository
+
+---
+
+### repository.js
+
+- SQL Queries
+- Database Access
+- Parameterized Queries Only
+
+---
+
+### validators.js
+
+- Request Validation
+- express-validator Rules
+- Input Sanitization
+
+---
+
+# 🗃 Main Modules
+
+| Module | Description |
+|---------|-------------|
+| 🔐 Auth | Authentication & JWT |
+| 👥 Users | Employee Management |
+| 🏢 Departments | Department Management |
+| 🏷 Categories | Asset Categories |
+| 📦 Assets | Asset CRUD |
+| 👤 Allocations | Asset Assignment |
+| 🔄 Transfers | Asset Transfer Workflow |
+| 📅 Bookings | Shared Asset Booking |
+| 🛠 Maintenance | Maintenance Workflow |
+| 📋 Audits | Audit Cycles |
+| 🔔 Notifications | User Notifications |
+| 📊 Reports | CSV & Analytics |
+
+---
 
