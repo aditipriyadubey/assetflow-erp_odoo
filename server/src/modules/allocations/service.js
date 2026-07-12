@@ -105,8 +105,8 @@ function rejectClientControlledFields(allocationData, mode) {
 }
 
 /**
- * Enforces the schema-level business rule that there can be at most one
- * active allocation per asset.
+ * Enforces the schema-backed rule that there can be at most one active
+ * allocation per asset.
  * @param {number} assetId
  * @param {number|null} [excludeAllocationId]
  */
@@ -116,8 +116,11 @@ async function assertNoActiveAllocationForAsset(assetId, excludeAllocationId = n
   }
 
   const repo = getRepository();
-  const existing = await repo.findActiveByAssetId(assetId);
+  if (typeof repo.findActiveByAssetId !== 'function') {
+    throw new AppError('NOT_IMPLEMENTED', 'Allocations repository is missing active-allocation lookup.', 500);
+  }
 
+  const existing = await repo.findActiveByAssetId(assetId);
   if (existing && existing.id !== excludeAllocationId) {
     throw new AppError(
       'VALIDATION_ERROR',
@@ -174,6 +177,9 @@ async function createAllocation(allocationData) {
   await assertNoActiveAllocationForAsset(asset_id);
 
   const repo = getRepository();
+  if (typeof repo.createAllocation !== 'function') {
+    throw new AppError('NOT_IMPLEMENTED', 'Allocations repository is missing allocation creation.', 500);
+  }
 
   let allocationId;
   try {
@@ -203,13 +209,13 @@ async function createAllocation(allocationData) {
  */
 async function updateAllocation(id, allocationData) {
   const existing = await getAllocationById(id);
-  if (!existing) {
-    throw new AppError('NOT_FOUND', 'Allocation not found.', 404);
-  }
-
   rejectClientControlledFields(allocationData, 'update');
 
   const repo = getRepository();
+  if (typeof repo.updateAllocation !== 'function') {
+    throw new AppError('NOT_IMPLEMENTED', 'Allocations repository is missing allocation updates.', 500);
+  }
+
   const targetAssetId = Object.prototype.hasOwnProperty.call(allocationData, 'asset_id')
     ? allocationData.asset_id
     : existing.asset_id;
@@ -235,11 +241,11 @@ async function updateAllocation(id, allocationData) {
  */
 async function deleteAllocation(id) {
   const existing = await getAllocationById(id);
-  if (!existing) {
-    throw new AppError('NOT_FOUND', 'Allocation not found.', 404);
-  }
-
   const repo = getRepository();
+
+  if (typeof repo.deleteAllocation !== 'function') {
+    throw new AppError('NOT_IMPLEMENTED', 'Allocations repository is missing allocation deletion.', 500);
+  }
 
   try {
     await repo.deleteAllocation(id);
@@ -254,13 +260,10 @@ async function deleteAllocation(id) {
  */
 async function searchAllocations(filters = {}) {
   const repo = getRepository();
+  const allocations = typeof repo.searchAllocations === 'function'
+    ? await repo.searchAllocations(filters)
+    : await repo.findAll();
 
-  if (typeof repo.searchAllocations === 'function') {
-    const allocations = await repo.searchAllocations(filters);
-    return allocations.map(sanitizeAllocation);
-  }
-
-  const allocations = await repo.findAll();
   return allocations
     .filter((allocation) => {
       if (Object.prototype.hasOwnProperty.call(filters, 'asset_id') && allocation.asset_id !== filters.asset_id) {

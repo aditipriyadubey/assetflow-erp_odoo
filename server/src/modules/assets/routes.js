@@ -41,7 +41,7 @@ router.post(
   validate,
   controller.createAsset
 );
-router.put(
+router.patch(
   '/:id',
   requireRole('Admin', 'AssetManager'),
   assetIdValidator,
