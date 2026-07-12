@@ -452,3 +452,389 @@ MySQL Database
 
 ---
 
+# 🚀 Installation
+
+## 📥 Clone the Repository
+
+```bash
+git clone https://github.com/your-username/assetflow-erp_odoo.git
+```
+
+Move inside the project
+
+```bash
+cd assetflow-erp_odoo
+```
+
+---
+
+# 📦 Install Dependencies
+
+## Frontend
+
+```bash
+cd client
+npm install
+```
+
+---
+
+## Backend
+
+```bash
+cd ../server
+npm install
+```
+
+---
+
+# ▶ Running the Project
+
+## Start Backend
+
+```bash
+npm run dev
+```
+
+Runs on:
+
+```
+http://localhost:5000
+```
+
+---
+
+## Start Frontend
+
+```bash
+cd client
+npm run dev
+```
+
+Runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+# ⚙ Environment Variables
+
+Create a `.env` file inside the **server/** directory.
+
+```env
+PORT=5000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=assetflow_db
+DB_USER=root
+DB_PASSWORD=your_password
+
+JWT_ACCESS_SECRET=your_access_secret
+JWT_REFRESH_SECRET=your_refresh_secret
+
+JWT_ACCESS_EXPIRES=15m
+JWT_REFRESH_EXPIRES=7d
+
+BCRYPT_SALT_ROUNDS=10
+```
+
+---
+
+# 🗄 Database Setup
+
+### Step 1
+
+Create a database named
+
+```
+assetflow_db
+```
+
+---
+
+### Step 2
+
+Run
+
+```
+server/database/schema.sql
+```
+
+---
+
+### Step 3
+
+Run
+
+```
+server/database/seed.sql
+```
+
+---
+
+### Step 4
+
+Start the backend server.
+
+---
+
+# 🌐 REST API Overview
+
+## Authentication
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /api/v1/auth/signup |
+| POST | /api/v1/auth/login |
+| POST | /api/v1/auth/forgot-password |
+| POST | /api/v1/auth/reset-password |
+| GET | /api/v1/auth/me |
+
+---
+
+## Assets
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/v1/assets |
+| GET | /api/v1/assets/:id |
+| POST | /api/v1/assets |
+| PUT | /api/v1/assets/:id |
+| DELETE | /api/v1/assets/:id |
+| GET | /api/v1/assets/search |
+| GET | /api/v1/assets/:id/history |
+
+---
+
+## Allocations
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/v1/allocations |
+| GET | /api/v1/allocations/:id |
+| POST | /api/v1/allocations |
+| PUT | /api/v1/allocations/:id |
+| DELETE | /api/v1/allocations/:id |
+
+---
+
+## Transfers
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/v1/transfers |
+| GET | /api/v1/transfers/:id |
+| POST | /api/v1/transfers |
+| PUT | /api/v1/transfers/:id/approve |
+| PUT | /api/v1/transfers/:id/reject |
+
+---
+
+## Reports
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/v1/reports/inventory |
+| GET | /api/v1/reports/allocations |
+| GET | /api/v1/reports/transfers |
+| GET | /api/v1/reports/maintenance |
+| GET | /api/v1/reports/audits |
+| GET | /api/v1/reports/summary |
+
+---
+
+# 📊 Database Overview
+
+Main tables used in AssetFlow
+
+| Table | Purpose |
+|---------|---------|
+| users | Employee Management |
+| departments | Organization Departments |
+| asset_categories | Asset Categories |
+| assets | Asset Records |
+| asset_allocations | Employee Asset Allocation |
+| transfer_requests | Asset Transfers |
+| bookings | Shared Asset Booking |
+| maintenance_requests | Maintenance Tracking |
+| audit_cycles | Audit Management |
+| audit_items | Audit Details |
+| notifications | User Notifications |
+| activity_logs | Activity History |
+
+---
+
+# 🔒 Security Features
+
+✅ JWT Authentication
+
+✅ Role-Based Access Control
+
+✅ Password Hashing using bcrypt
+
+✅ Parameterized SQL Queries
+
+✅ Protected Routes
+
+✅ Express Validator
+
+✅ Input Sanitization
+
+✅ Standard Response Envelope
+
+✅ Centralized Error Handling
+
+---
+
+# 📈 Future Roadmap
+
+- [ ] Email Notifications
+- [ ] QR Scanner Support
+- [ ] Barcode Generation
+- [ ] Mobile Application
+- [ ] AI-powered Asset Analytics
+- [ ] Real-time Notifications
+- [ ] Cloud Storage Integration
+- [ ] Multi-Organization Support
+- [ ] Dark Mode
+- [ ] Dashboard Analytics Charts
+
+---
+
+# 📸 Screenshots
+
+## 🔐 Login Page
+
+> _Screenshot Coming Soon_
+
+---
+
+## 📊 Dashboard
+
+> _Screenshot Coming Soon_
+
+---
+
+## 📦 Assets
+
+> _Screenshot Coming Soon_
+
+---
+
+## 👤 Allocations
+
+> _Screenshot Coming Soon_
+
+---
+
+## 🔄 Transfers
+
+> _Screenshot Coming Soon_
+
+---
+
+## 📈 Reports
+
+> _Screenshot Coming Soon_
+
+---
+
+# 🧪 Testing
+
+The backend APIs can be tested using:
+
+- Postman
+- Thunder Client
+- Insomnia
+
+Recommended workflow:
+
+1. Authenticate using Login API.
+2. Copy JWT token.
+3. Add Authorization header:
+
+```
+Authorization: Bearer <token>
+```
+
+4. Test protected endpoints.
+
+---
+
+# 🤝 Contributing
+
+1. Fork the repository
+
+2. Create a new feature branch
+
+```bash
+git checkout -b feature/your-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add your feature"
+```
+
+4. Push your branch
+
+```bash
+git push origin feature/your-feature
+```
+
+5. Create a Pull Request
+
+---
+
+# 📝 Coding Standards
+
+- Follow Layered Architecture
+- Use Parameterized SQL
+- Keep Business Logic inside Services
+- Controllers should remain thin
+- Validate all incoming requests
+- Follow REST API conventions
+- Use meaningful commit messages
+- Maintain clean folder structure
+
+---
+
+# 📄 License
+
+This project is developed as an academic and educational project.
+
+It is intended for learning, demonstration, and portfolio purposes.
+
+---
+
+# 🙌 Acknowledgements
+
+Special thanks to:
+
+- Project Team Members
+- Faculty Mentors
+- Open Source Community
+- Node.js Community
+- React Community
+- Express.js Contributors
+- MySQL Community
+
+---
+
+<div align="center">
+
+# ⭐ If you found this project useful, consider giving it a star!
+
+Made with ❤️ using **React, Node.js, Express.js & MySQL**
+
+### 🚀 AssetFlow — Smart Asset Management for Modern Organizations
+
+<p align="center">
+Manage • Track • Allocate • Maintain • Audit • Report
+</p>
+
+</div>
