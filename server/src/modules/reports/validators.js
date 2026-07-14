@@ -1,11 +1,30 @@
 /**
  * server/src/modules/reports/validators.js
  *
+<<<<<<< HEAD
+ * express-validator rules only.
+=======
  * express-validator chains only — no business logic (SDD §26).
+>>>>>>> develop
  */
 
 const { query } = require('express-validator');
 
+<<<<<<< HEAD
+const reportQueryValidators = [
+  query('from')
+    .optional({ nullable: true })
+    .isISO8601({ strict: true, strictSeparator: true })
+    .withMessage('The from date must be a valid ISO 8601 date.'),
+  query('to')
+    .optional({ nullable: true })
+    .isISO8601({ strict: true, strictSeparator: true })
+    .withMessage('The to date must be a valid ISO 8601 date.'),
+];
+
+module.exports = {
+  reportQueryValidators,
+=======
 const dateRangeValidators = [
   query('start_date')
     .optional()
@@ -43,4 +62,5 @@ module.exports = {
   departmentAllocationValidators,
   bookingHeatmapValidators,
   exportValidators,
+>>>>>>> develop
 };

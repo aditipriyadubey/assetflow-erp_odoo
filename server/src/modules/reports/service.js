@@ -1,6 +1,39 @@
 /**
  * server/src/modules/reports/service.js
  *
+<<<<<<< HEAD
+ * Report generation only.
+ */
+
+const repository = require('./repository');
+
+async function getInventoryReport() {
+  return repository.getAssetInventory();
+}
+
+async function getAllocationReport() {
+  return repository.getAllocationSummary();
+}
+
+async function getTransferReport() {
+  return repository.getTransferSummary();
+}
+
+async function getMaintenanceReport() {
+  return repository.getMaintenanceSummary();
+}
+
+async function getAuditReport() {
+  return repository.getAuditSummary();
+}
+
+module.exports = {
+  getInventoryReport,
+  getAllocationReport,
+  getTransferReport,
+  getMaintenanceReport,
+  getAuditReport,
+=======
  * Pure business logic for reports (SDD §25). Never touches req/res.
  * Date ranges, utilization ratios, CSV export, and role scoping are
  * resolved here; the repository executes parameterized SQL only.
@@ -328,4 +361,5 @@ module.exports = {
   getDepartmentAllocation,
   getBookingHeatmap,
   exportReportCsv,
+>>>>>>> develop
 };
