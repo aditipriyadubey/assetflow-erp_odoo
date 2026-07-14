@@ -1,51 +1,15 @@
-import api from './client';
+import axiosClient from './axiosClient';
 
-export async function listAllocations() {
-  const response = await api.get('/allocations');
-  return response.data?.data ?? [];
-}
+export const listAllocations = (params) => axiosClient.get('/allocations', { params });
+export const createAllocation = (payload) => axiosClient.post('/allocations', payload);
 
-export async function createAllocation(payload) {
-  const response = await api.post('/allocations', payload);
-  return response.data?.data;
-}
-
-export async function updateAllocation(id, payload) {
-  const response = await api.patch(`/allocations/${id}`, payload);
-  return response.data?.data;
-}
-
-export async function deleteAllocation(id) {
-  const response = await api.delete(`/allocations/${id}`);
-  return response.data?.data;
-}
-
-export async function listAssets() {
-  const response = await api.get('/assets');
-  return response.data?.data ?? [];
-}
-
-export async function listUsers() {
-  const response = await api.get('/users');
-  return response.data?.data ?? [];
-}
-
-export async function listTransfers() {
-  const response = await api.get('/transfers');
-  return response.data?.data ?? [];
-}
-
-export async function createTransfer(payload) {
-  const response = await api.post('/transfers', payload);
-  return response.data?.data;
-}
-
-export async function approveTransfer(id) {
-  const response = await api.patch(`/transfers/${id}/approve`);
-  return response.data?.data;
-}
-
-export async function rejectTransfer(id) {
-  const response = await api.patch(`/transfers/${id}/reject`);
-  return response.data?.data;
-}
+// NOTE: SDD §14.6 specifies `POST /allocations/:id/return`. The backend
+// allocations module as delivered only exposes a generic `PATCH /:id`
+// instead — see the audit report's Phase 3 findings. This call targets
+// the SDD-specified endpoint; add the dedicated `/return` route to
+// server/src/modules/allocations/routes.js (mapping to a new
+// `returnAllocation` service function that sets status='Returned',
+// actual_return_date=NOW(), and flips the asset back to 'Available')
+// before this will work end-to-end.
+export const returnAllocation = (id, conditionCheckinNotes) =>
+  axiosClient.post(`/allocations/${id}/return`, { condition_checkin_notes: conditionCheckinNotes });
